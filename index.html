@@ -3,321 +3,1068 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust - Explore the World</title>
+    <title>Incredible India - Discover the Land of Diversity</title>
+    <meta name="description" content="Experience the incredible beauty and rich culture of India with our expertly curated travel packages. From the majestic Himalayas to pristine beaches, ancient temples to bustling cities.">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI0ZGNjkwMCI+PHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJ6Ii8+PC9zdmc+">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="lotus-animation">
+                <div class="lotus-petal"></div>
+                <div class="lotus-petal"></div>
+                <div class="lotus-petal"></div>
+                <div class="lotus-petal"></div>
+                <div class="lotus-petal"></div>
+                <div class="lotus-petal"></div>
+            </div>
+            <h2>Welcome to Incredible India</h2>
+            <p>Preparing your journey of a lifetime...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-globe-americas"></i>
-                <span>Wanderlust</span>
+                <i class="fas fa-lotus"></i>
+                <span>Incredible India</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#destinations" class="nav-link">Destinations</a></li>
                 <li><a href="#packages" class="nav-link">Packages</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#culture" class="nav-link">Culture</a></li>
+                <li><a href="#experiences" class="nav-link">Experiences</a></li>
+                <li><a href="#testimonials" class="nav-link">Reviews</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-actions">
+                <button class="btn-secondary" onclick="openBookingModal()">
+                    <i class="fas fa-calendar-check"></i>
+                    Book Now
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">Discover</span>
-                <span class="title-line">Amazing</span>
-                <span class="title-line">Destinations</span>
-            </h1>
-            <p class="hero-subtitle">Experience the world like never before with our curated travel experiences</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="scrollToSection('destinations')">
-                    <i class="fas fa-map-marked-alt"></i>
-                    Explore Destinations
-                </button>
-                <button class="btn btn-secondary" onclick="openBookingModal()">
-                    <i class="fas fa-calendar-alt"></i>
-                    Book Now
-                </button>
+        <div class="hero-background">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1920&h=1080&fit=crop&q=85" alt="Taj Mahal at sunrise">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&q=85" alt="Kerala Backwaters">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1920&h=1080&fit=crop&q=85" alt="Rajasthan Desert">
             </div>
         </div>
-        <div class="hero-visual">
-            <div class="floating-cards">
-                <div class="card card-1">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop" alt="Mountain">
-                    <div class="card-content">
-                        <h3>Mountain Adventure</h3>
-                        <p>Explore the peaks</p>
-                    </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Discover</span>
+                    <span class="title-line highlight">Incredible India</span>
+                    <span class="title-line">Where Every Journey</span>
+                    <span class="title-line">Tells a Story</span>
+                </h1>
+                <p class="hero-subtitle">From the snow-capped Himalayas to the tropical beaches of Goa, from ancient temples to bustling cities - experience the land where diversity thrives and culture comes alive.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('destinations')">
+                        <i class="fas fa-compass"></i>
+                        Explore Destinations
+                    </button>
+                    <button class="btn-outline" onclick="openBookingModal()">
+                        <i class="fas fa-plane"></i>
+                        Plan Your Trip
+                    </button>
                 </div>
-                <div class="card card-2">
-                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop" alt="Beach">
-                    <div class="card-content">
-                        <h3>Beach Paradise</h3>
-                        <p>Relax by the ocean</p>
-                    </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-target="29">0</span>
+                    <span class="stat-label">States & Territories</span>
                 </div>
-                <div class="card card-3">
-                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300&h=200&fit=crop" alt="City">
-                    <div class="card-content">
-                        <h3>City Explorer</h3>
-                        <p>Discover urban life</p>
+                <div class="stat">
+                    <span class="stat-number" data-target="1000">0</span>
+                    <span class="stat-label">Ancient Monuments</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="40">0</span>
+                    <span class="stat-label">UNESCO Sites</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-navigation">
+            <button class="hero-nav-btn prev" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="hero-nav-btn next" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Quick Search -->
+    <section class="quick-search">
+        <div class="container">
+            <div class="search-card">
+                <h3>Find Your Perfect Indian Adventure</h3>
+                <div class="search-form">
+                    <div class="search-group">
+                        <label>Where do you want to go?</label>
+                        <select id="destinationSelect">
+                            <option value="">Select Destination</option>
+                            <option value="rajasthan">Rajasthan - Land of Kings</option>
+                            <option value="kerala">Kerala - God's Own Country</option>
+                            <option value="goa">Goa - Beach Paradise</option>
+                            <option value="himachal">Himachal Pradesh - Mountain Beauty</option>
+                            <option value="uttarakhand">Uttarakhand - Adventure Capital</option>
+                            <option value="kashmir">Kashmir - Paradise on Earth</option>
+                            <option value="tamil-nadu">Tamil Nadu - Temple Trail</option>
+                            <option value="karnataka">Karnataka - Heritage & Nature</option>
+                        </select>
                     </div>
+                    <div class="search-group">
+                        <label>Travel Type</label>
+                        <select id="travelType">
+                            <option value="">Select Type</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="cultural">Cultural</option>
+                            <option value="spiritual">Spiritual</option>
+                            <option value="beach">Beach</option>
+                            <option value="mountain">Mountain</option>
+                            <option value="wildlife">Wildlife</option>
+                            <option value="luxury">Luxury</option>
+                        </select>
+                    </div>
+                    <div class="search-group">
+                        <label>Duration</label>
+                        <select id="duration">
+                            <option value="">Select Duration</option>
+                            <option value="3-5">3-5 Days</option>
+                            <option value="6-10">6-10 Days</option>
+                            <option value="11-15">11-15 Days</option>
+                            <option value="15+">15+ Days</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary search-btn" onclick="searchPackages()">
+                        <i class="fas fa-search"></i>
+                        Search Adventures
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Destinations Section -->
+    <!-- Featured Destinations -->
     <section id="destinations" class="destinations">
         <div class="container">
-            <h2 class="section-title">Popular Destinations</h2>
+            <div class="section-header">
+                <h2 class="section-title">Iconic Destinations</h2>
+                <p class="section-subtitle">Discover India's most breathtaking locations, each with its own unique charm and story to tell</p>
+            </div>
+            
             <div class="destinations-grid">
-                <div class="destination-card" data-destination="paris">
+                <div class="destination-card featured" data-destination="rajasthan">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1502602898534-47d9b5d1b1a1?w=400&h=300&fit=crop" alt="Paris">
+                        <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600&h=400&fit=crop&q=85" alt="Jaipur Pink City">
                         <div class="destination-overlay">
-                            <button class="explore-btn">Explore</button>
+                            <div class="destination-badge">Most Popular</div>
+                            <button class="explore-btn" onclick="exploreDestination('rajasthan')">
+                                <i class="fas fa-eye"></i>
+                                Explore
+                            </button>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>Paris, France</h3>
-                        <p>The City of Light awaits with its iconic landmarks and romantic atmosphere.</p>
+                    <div class="destination-content">
+                        <h3>Rajasthan</h3>
+                        <p class="destination-tagline">Land of Kings & Palaces</p>
+                        <p class="destination-description">Experience royal heritage in magnificent palaces, explore golden deserts, and witness vibrant festivals in this majestic state.</p>
+                        <div class="destination-highlights">
+                            <span><i class="fas fa-crown"></i> Royal Palaces</span>
+                            <span><i class="fas fa-mountain"></i> Desert Safari</span>
+                            <span><i class="fas fa-camera"></i> Photography</span>
+                        </div>
                         <div class="destination-meta">
-                            <span><i class="fas fa-star"></i> 4.8</span>
-                            <span><i class="fas fa-clock"></i> 5 days</span>
-                            <span><i class="fas fa-dollar-sign"></i> From $899</span>
+                            <span class="price">From ₹25,000</span>
+                            <span class="duration">7-10 Days</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                4.9
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="destination-card" data-destination="tokyo">
+                <div class="destination-card" data-destination="kerala">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop" alt="Tokyo">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&h=400&fit=crop&q=85" alt="Kerala Backwaters">
                         <div class="destination-overlay">
-                            <button class="explore-btn">Explore</button>
+                            <button class="explore-btn" onclick="exploreDestination('kerala')">
+                                <i class="fas fa-eye"></i>
+                                Explore
+                            </button>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>Tokyo, Japan</h3>
-                        <p>Experience the perfect blend of tradition and cutting-edge technology.</p>
+                    <div class="destination-content">
+                        <h3>Kerala</h3>
+                        <p class="destination-tagline">God's Own Country</p>
+                        <p class="destination-description">Cruise through serene backwaters, relax on pristine beaches, and experience authentic Ayurvedic treatments.</p>
+                        <div class="destination-highlights">
+                            <span><i class="fas fa-ship"></i> Houseboat Stay</span>
+                            <span><i class="fas fa-leaf"></i> Ayurveda</span>
+                            <span><i class="fas fa-umbrella-beach"></i> Beaches</span>
+                        </div>
                         <div class="destination-meta">
-                            <span><i class="fas fa-star"></i> 4.9</span>
-                            <span><i class="fas fa-clock"></i> 7 days</span>
-                            <span><i class="fas fa-dollar-sign"></i> From $1299</span>
+                            <span class="price">From ₹20,000</span>
+                            <span class="duration">5-8 Days</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                4.8
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="destination-card" data-destination="santorini">
+                <div class="destination-card" data-destination="himachal">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=300&fit=crop" alt="Santorini">
+                        <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&h=400&fit=crop&q=85" alt="Himachal Pradesh Mountains">
                         <div class="destination-overlay">
-                            <button class="explore-btn">Explore</button>
+                            <button class="explore-btn" onclick="exploreDestination('himachal')">
+                                <i class="fas fa-eye"></i>
+                                Explore
+                            </button>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>Santorini, Greece</h3>
-                        <p>Stunning sunsets and white-washed buildings overlooking the Aegean Sea.</p>
+                    <div class="destination-content">
+                        <h3>Himachal Pradesh</h3>
+                        <p class="destination-tagline">Mountain Paradise</p>
+                        <p class="destination-description">Adventure in the Himalayas with trekking, skiing, and breathtaking mountain vistas in hill stations like Shimla and Manali.</p>
+                        <div class="destination-highlights">
+                            <span><i class="fas fa-mountain"></i> Trekking</span>
+                            <span><i class="fas fa-skiing"></i> Adventure Sports</span>
+                            <span><i class="fas fa-snowflake"></i> Snow Activities</span>
+                        </div>
                         <div class="destination-meta">
-                            <span><i class="fas fa-star"></i> 4.7</span>
-                            <span><i class="fas fa-clock"></i> 6 days</span>
-                            <span><i class="fas fa-dollar-sign"></i> From $1099</span>
+                            <span class="price">From ₹18,000</span>
+                            <span class="duration">6-9 Days</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                4.7
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="destination-card" data-destination="bali">
+                <div class="destination-card" data-destination="goa">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=300&fit=crop" alt="Bali">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&h=400&fit=crop&q=85" alt="Goa Beaches">
                         <div class="destination-overlay">
-                            <button class="explore-btn">Explore</button>
+                            <button class="explore-btn" onclick="exploreDestination('goa')">
+                                <i class="fas fa-eye"></i>
+                                Explore
+                            </button>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>Bali, Indonesia</h3>
-                        <p>Tropical paradise with rich culture, beautiful beaches, and spiritual temples.</p>
+                    <div class="destination-content">
+                        <h3>Goa</h3>
+                        <p class="destination-tagline">Beach Capital of India</p>
+                        <p class="destination-description">Relax on golden beaches, explore Portuguese heritage, enjoy vibrant nightlife, and taste delicious seafood.</p>
+                        <div class="destination-highlights">
+                            <span><i class="fas fa-umbrella-beach"></i> Pristine Beaches</span>
+                            <span><i class="fas fa-cocktail"></i> Nightlife</span>
+                            <span><i class="fas fa-fish"></i> Seafood</span>
+                        </div>
                         <div class="destination-meta">
-                            <span><i class="fas fa-star"></i> 4.6</span>
-                            <span><i class="fas fa-clock"></i> 8 days</span>
-                            <span><i class="fas fa-dollar-sign"></i> From $799</span>
+                            <span class="price">From ₹15,000</span>
+                            <span class="duration">4-7 Days</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                4.6
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-destination="uttarakhand">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop&q=85" alt="Uttarakhand">
+                        <div class="destination-overlay">
+                            <button class="explore-btn" onclick="exploreDestination('uttarakhand')">
+                                <i class="fas fa-eye"></i>
+                                Explore
+                            </button>
+                        </div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Uttarakhand</h3>
+                        <p class="destination-tagline">Land of Gods</p>
+                        <p class="destination-description">Spiritual journey to holy temples, thrilling river rafting, and scenic hill stations in the lap of Himalayas.</p>
+                        <div class="destination-highlights">
+                            <span><i class="fas fa-pray"></i> Pilgrimage</span>
+                            <span><i class="fas fa-water"></i> River Rafting</span>
+                            <span><i class="fas fa-tree"></i> Hill Stations</span>
+                        </div>
+                        <div class="destination-meta">
+                            <span class="price">From ₹22,000</span>
+                            <span class="duration">7-12 Days</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                4.8
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-destination="tamil-nadu">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&h=400&fit=crop&q=85" alt="Tamil Nadu Temples">
+                        <div class="destination-overlay">
+                            <button class="explore-btn" onclick="exploreDestination('tamil-nadu')">
+                                <i class="fas fa-eye"></i>
+                                Explore
+                            </button>
+                        </div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Tamil Nadu</h3>
+                        <p class="destination-tagline">Temple Trail & Culture</p>
+                        <p class="destination-description">Explore magnificent Dravidian temples, classical dance, traditional crafts, and the hill station of Ooty.</p>
+                        <div class="destination-highlights">
+                            <span><i class="fas fa-archway"></i> Ancient Temples</span>
+                            <span><i class="fas fa-theater-masks"></i> Classical Arts</span>
+                            <span><i class="fas fa-mountain"></i> Hill Stations</span>
+                        </div>
+                        <div class="destination-meta">
+                            <span class="price">From ₹19,000</span>
+                            <span class="duration">6-10 Days</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                4.7
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Interactive Map Section -->
-    <section class="interactive-map">
-        <div class="container">
-            <h2 class="section-title">Explore Our World</h2>
-            <div class="map-container">
-                <div class="world-map">
-                    <div class="map-point" data-location="paris" style="top: 35%; left: 48%;">
-                        <div class="point-marker"></div>
-                        <div class="point-info">
-                            <h4>Paris</h4>
-                            <p>Starting from $899</p>
-                        </div>
-                    </div>
-                    <div class="map-point" data-location="tokyo" style="top: 40%; left: 85%;">
-                        <div class="point-marker"></div>
-                        <div class="point-info">
-                            <h4>Tokyo</h4>
-                            <p>Starting from $1299</p>
-                        </div>
-                    </div>
-                    <div class="map-point" data-location="santorini" style="top: 45%; left: 55%;">
-                        <div class="point-marker"></div>
-                        <div class="point-info">
-                            <h4>Santorini</h4>
-                            <p>Starting from $1099</p>
-                        </div>
-                    </div>
-                    <div class="map-point" data-location="bali" style="top: 65%; left: 80%;">
-                        <div class="point-marker"></div>
-                        <div class="point-info">
-                            <h4>Bali</h4>
-                            <p>Starting from $799</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="destinations-cta">
+                <button class="btn-outline" onclick="showAllDestinations()">
+                    <i class="fas fa-globe-asia"></i>
+                    View All 29 States
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Packages Section -->
+    <!-- Travel Packages -->
     <section id="packages" class="packages">
         <div class="container">
-            <h2 class="section-title">Travel Packages</h2>
-            <div class="package-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="adventure">Adventure</button>
-                <button class="filter-btn" data-filter="relaxation">Relaxation</button>
-                <button class="filter-btn" data-filter="culture">Culture</button>
-                <button class="filter-btn" data-filter="luxury">Luxury</button>
+            <div class="section-header">
+                <h2 class="section-title">Curated Travel Packages</h2>
+                <p class="section-subtitle">Handcrafted journeys designed to give you the authentic Indian experience</p>
             </div>
-            <div class="packages-grid">
-                <div class="package-card" data-category="adventure luxury">
+
+            <div class="package-filters">
+                <button class="filter-btn active" data-filter="all">All Packages</button>
+                <button class="filter-btn" data-filter="cultural">Cultural</button>
+                <button class="filter-btn" data-filter="adventure">Adventure</button>
+                <button class="filter-btn" data-filter="spiritual">Spiritual</button>
+                <button class="filter-btn" data-filter="luxury">Luxury</button>
+                <button class="filter-btn" data-filter="budget">Budget</button>
+            </div>
+
+            <div class="packages-grid" id="packagesGrid">
+                <div class="package-card" data-category="cultural luxury">
                     <div class="package-image">
-                        <img src="https://images.unsplash.com/photo-1464822759844-d150baec0134?w=400&h=250&fit=crop" alt="Mountain Adventure">
-                        <div class="package-badge">Popular</div>
+                        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=500&h=300&fit=crop&q=85" alt="Golden Triangle">
+                        <div class="package-badge popular">Most Popular</div>
+                        <div class="package-overlay">
+                            <button class="package-btn" onclick="viewPackageDetails('golden-triangle')">View Details</button>
+                        </div>
                     </div>
                     <div class="package-content">
-                        <h3>Swiss Alps Adventure</h3>
-                        <p>Experience the thrill of mountain climbing and hiking in the beautiful Swiss Alps.</p>
+                        <div class="package-header">
+                            <h3>Golden Triangle Deluxe</h3>
+                            <div class="package-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (847 reviews)</span>
+                            </div>
+                        </div>
+                        <p>Delhi - Agra - Jaipur classic circuit with luxury accommodations and private guides</p>
                         <div class="package-features">
-                            <span><i class="fas fa-mountain"></i> Hiking</span>
-                            <span><i class="fas fa-camera"></i> Photography</span>
-                            <span><i class="fas fa-utensils"></i> Local Cuisine</span>
+                            <span><i class="fas fa-hotel"></i> 5-Star Hotels</span>
+                            <span><i class="fas fa-car"></i> Private Transport</span>
+                            <span><i class="fas fa-user-tie"></i> Expert Guide</span>
                         </div>
-                        <div class="package-price">
-                            <span class="price">$1,299</span>
-                            <span class="duration">7 days</span>
+                        <div class="package-includes">
+                            <h4>Includes:</h4>
+                            <ul>
+                                <li>Taj Mahal sunrise visit</li>
+                                <li>Red Fort & Qutub Minar</li>
+                                <li>Amber Fort & City Palace</li>
+                                <li>All meals & transfers</li>
+                            </ul>
                         </div>
-                        <button class="btn btn-primary">Book Now</button>
+                        <div class="package-pricing">
+                            <div class="price-info">
+                                <span class="price">₹45,000</span>
+                                <span class="duration">6 Days / 5 Nights</span>
+                            </div>
+                            <button class="btn-primary" onclick="bookPackage('golden-triangle')">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="package-card" data-category="relaxation">
+                <div class="package-card" data-category="spiritual cultural">
                     <div class="package-image">
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=250&fit=crop" alt="Beach Retreat">
-                        <div class="package-badge">New</div>
+                        <img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=500&h=300&fit=crop&q=85" alt="Spiritual India">
+                        <div class="package-overlay">
+                            <button class="package-btn" onclick="viewPackageDetails('spiritual-journey')">View Details</button>
+                        </div>
                     </div>
                     <div class="package-content">
-                        <h3>Maldives Beach Retreat</h3>
-                        <p>Unwind in overwater bungalows with crystal clear waters and pristine beaches.</p>
+                        <div class="package-header">
+                            <h3>Spiritual India Journey</h3>
+                            <div class="package-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (623 reviews)</span>
+                            </div>
+                        </div>
+                        <p>Sacred journey through Varanasi, Rishikesh, and Haridwar for spiritual awakening</p>
                         <div class="package-features">
-                            <span><i class="fas fa-swimming-pool"></i> Spa</span>
-                            <span><i class="fas fa-fish"></i> Snorkeling</span>
-                            <span><i class="fas fa-umbrella-beach"></i> Beach</span>
+                            <span><i class="fas fa-pray"></i> Yoga Sessions</span>
+                            <span><i class="fas fa-meditation"></i> Meditation</span>
+                            <span><i class="fas fa-leaf"></i> Ayurveda</span>
                         </div>
-                        <div class="package-price">
-                            <span class="price">$2,199</span>
-                            <span class="duration">5 days</span>
+                        <div class="package-includes">
+                            <h4>Includes:</h4>
+                            <ul>
+                                <li>Ganga Aarti ceremony</li>
+                                <li>Yoga & meditation classes</li>
+                                <li>Temple visits with priest</li>
+                                <li>Spiritual discourse sessions</li>
+                            </ul>
                         </div>
-                        <button class="btn btn-primary">Book Now</button>
+                        <div class="package-pricing">
+                            <div class="price-info">
+                                <span class="price">₹28,000</span>
+                                <span class="duration">8 Days / 7 Nights</span>
+                            </div>
+                            <button class="btn-primary" onclick="bookPackage('spiritual-journey')">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="package-card" data-category="culture">
+                <div class="package-card" data-category="adventure">
                     <div class="package-image">
-                        <img src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=400&h=250&fit=crop" alt="Cultural Tour">
+                        <img src="https://images.unsplash.com/photo-1605538883669-825200433431?w=500&h=300&fit=crop&q=85" alt="Himalayan Adventure">
+                        <div class="package-badge new">New</div>
+                        <div class="package-overlay">
+                            <button class="package-btn" onclick="viewPackageDetails('himalayan-adventure')">View Details</button>
+                        </div>
                     </div>
                     <div class="package-content">
-                        <h3>Japan Cultural Immersion</h3>
-                        <p>Discover ancient temples, traditional tea ceremonies, and modern Japanese culture.</p>
+                        <div class="package-header">
+                            <h3>Himalayan Adventure Trek</h3>
+                            <div class="package-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.7 (412 reviews)</span>
+                            </div>
+                        </div>
+                        <p>Thrilling trekking experience in Himachal with stunning mountain views and adventure activities</p>
                         <div class="package-features">
-                            <span><i class="fas fa-torii-gate"></i> Temples</span>
-                            <span><i class="fas fa-leaf"></i> Tea Ceremony</span>
-                            <span><i class="fas fa-train"></i> Bullet Train</span>
+                            <span><i class="fas fa-mountain"></i> Trekking</span>
+                            <span><i class="fas fa-parachute-box"></i> Paragliding</span>
+                            <span><i class="fas fa-water"></i> River Rafting</span>
                         </div>
-                        <div class="package-price">
-                            <span class="price">$1,599</span>
-                            <span class="duration">10 days</span>
+                        <div class="package-includes">
+                            <h4>Includes:</h4>
+                            <ul>
+                                <li>Professional trekking guide</li>
+                                <li>Camping equipment</li>
+                                <li>Adventure activities</li>
+                                <li>Mountain rescue insurance</li>
+                            </ul>
                         </div>
-                        <button class="btn btn-primary">Book Now</button>
+                        <div class="package-pricing">
+                            <div class="price-info">
+                                <span class="price">₹32,000</span>
+                                <span class="duration">10 Days / 9 Nights</span>
+                            </div>
+                            <button class="btn-primary" onclick="bookPackage('himalayan-adventure')">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="luxury">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&q=85" alt="Royal Rajasthan">
+                        <div class="package-overlay">
+                            <button class="package-btn" onclick="viewPackageDetails('royal-rajasthan')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <h3>Royal Rajasthan Palace Tour</h3>
+                            <div class="package-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (756 reviews)</span>
+                            </div>
+                        </div>
+                        <p>Live like royalty in heritage palaces across Rajasthan with luxury amenities and royal treatment</p>
+                        <div class="package-features">
+                            <span><i class="fas fa-crown"></i> Palace Hotels</span>
+                            <span><i class="fas fa-gem"></i> Luxury</span>
+                            <span><i class="fas fa-horse"></i> Royal Activities</span>
+                        </div>
+                        <div class="package-includes">
+                            <h4>Includes:</h4>
+                            <ul>
+                                <li>Heritage palace stays</li>
+                                <li>Royal dining experiences</li>
+                                <li>Elephant & camel rides</li>
+                                <li>Private cultural shows</li>
+                            </ul>
+                        </div>
+                        <div class="package-pricing">
+                            <div class="price-info">
+                                <span class="price">₹85,000</span>
+                                <span class="duration">12 Days / 11 Nights</span>
+                            </div>
+                            <button class="btn-primary" onclick="bookPackage('royal-rajasthan')">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="budget cultural">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1588777564147-b3bc75eb5b08?w=500&h=300&fit=crop&q=85" alt="South India Explorer">
+                        <div class="package-overlay">
+                            <button class="package-btn" onclick="viewPackageDetails('south-india-explorer')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <h3>South India Explorer</h3>
+                            <div class="package-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.6 (534 reviews)</span>
+                            </div>
+                        </div>
+                        <p>Discover the rich culture of South India through Kerala, Tamil Nadu, and Karnataka</p>
+                        <div class="package-features">
+                            <span><i class="fas fa-archway"></i> Temples</span>
+                            <span><i class="fas fa-ship"></i> Backwaters</span>
+                            <span><i class="fas fa-utensils"></i> Cuisine</span>
+                        </div>
+                        <div class="package-includes">
+                            <h4>Includes:</h4>
+                            <ul>
+                                <li>Temple hopping tours</li>
+                                <li>Backwater houseboat</li>
+                                <li>Cooking classes</li>
+                                <li>Cultural performances</li>
+                            </ul>
+                        </div>
+                        <div class="package-pricing">
+                            <div class="price-info">
+                                <span class="price">₹35,000</span>
+                                <span class="duration">14 Days / 13 Nights</span>
+                            </div>
+                            <button class="btn-primary" onclick="bookPackage('south-india-explorer')">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="budget adventure">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500&h=300&fit=crop&q=85" alt="Goa Beach Holiday">
+                        <div class="package-overlay">
+                            <button class="package-btn" onclick="viewPackageDetails('goa-beach-holiday')">View Details</button>
+                        </div>
+                    </div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <h3>Goa Beach Holiday</h3>
+                            <div class="package-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.5 (892 reviews)</span>
+                            </div>
+                        </div>
+                        <p>Relax on pristine beaches, enjoy water sports, and experience Goa's vibrant nightlife</p>
+                        <div class="package-features">
+                            <span><i class="fas fa-umbrella-beach"></i> Beaches</span>
+                            <span><i class="fas fa-swimmer"></i> Water Sports</span>
+                            <span><i class="fas fa-cocktail"></i> Nightlife</span>
+                        </div>
+                        <div class="package-includes">
+                            <h4>Includes:</h4>
+                            <ul>
+                                <li>Beach resort accommodation</li>
+                                <li>Water sports activities</li>
+                                <li>Sunset cruise</li>
+                                <li>Spice plantation visit</li>
+                            </ul>
+                        </div>
+                        <div class="package-pricing">
+                            <div class="price-info">
+                                <span class="price">₹22,000</span>
+                                <span class="duration">5 Days / 4 Nights</span>
+                            </div>
+                            <button class="btn-primary" onclick="bookPackage('goa-beach-holiday')">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="packages-cta">
+                <button class="btn-outline" onclick="showAllPackages()">
+                    <i class="fas fa-plus-circle"></i>
+                    View All Packages
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cultural Highlights -->
+    <section id="culture" class="culture">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cultural Treasures</h2>
+                <p class="section-subtitle">Immerse yourself in India's rich cultural heritage spanning thousands of years</p>
+            </div>
+
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i class="fas fa-archway"></i>
+                    </div>
+                    <h3>Ancient Architecture</h3>
+                    <p>Marvel at architectural wonders from the Taj Mahal to intricate temple carvings that showcase India's artistic legacy.</p>
+                    <div class="culture-examples">
+                        <span>Taj Mahal</span>
+                        <span>Khajuraho Temples</span>
+                        <span>Ajanta Caves</span>
+                    </div>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <h3>Classical Arts</h3>
+                    <p>Experience the grace of classical dance forms, soul-stirring music, and traditional theatrical performances.</p>
+                    <div class="culture-examples">
+                        <span>Bharatanatyam</span>
+                        <span>Kathak</span>
+                        <span>Hindustani Classical</span>
+                    </div>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i class="fas fa-om"></i>
+                    </div>
+                    <h3>Spirituality</h3>
+                    <p>Discover inner peace through ancient spiritual practices, meditation, and visits to sacred places.</p>
+                    <div class="culture-examples">
+                        <span>Yoga</span>
+                        <span>Meditation</span>
+                        <span>Temple Rituals</span>
+                    </div>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Festivals</h3>
+                    <p>Celebrate life with vibrant festivals that showcase the diversity and unity of Indian culture.</p>
+                    <div class="culture-examples">
+                        <span>Diwali</span>
+                        <span>Holi</span>
+                        <span>Durga Puja</span>
+                    </div>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i class="fas fa-pepper-hot"></i>
+                    </div>
+                    <h3>Cuisine</h3>
+                    <p>Savor the incredible diversity of Indian cuisine with regional specialties and traditional cooking methods.</p>
+                    <div class="culture-examples">
+                        <span>Mughlai</span>
+                        <span>South Indian</span>
+                        <span>Gujarati Thali</span>
+                    </div>
+                </div>
+
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <h3>Handicrafts</h3>
+                    <p>Admire exquisite handicrafts and textiles that represent centuries-old traditions and skilled craftsmanship.</p>
+                    <div class="culture-examples">
+                        <span>Silk Weaving</span>
+                        <span>Block Printing</span>
+                        <span>Pottery</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <!-- Unique Experiences -->
+    <section id="experiences" class="experiences">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Why Choose Wanderlust?</h2>
-                    <p>We believe travel should be more than just visiting places – it should be about creating unforgettable experiences and memories that last a lifetime.</p>
-                    <div class="features-list">
-                        <div class="feature">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <h4>Safe & Secure</h4>
-                                <p>Your safety is our top priority with 24/7 support</p>
+            <div class="section-header">
+                <h2 class="section-title">Unique Indian Experiences</h2>
+                <p class="section-subtitle">Create memories that will last a lifetime with these authentic Indian adventures</p>
+            </div>
+
+            <div class="experiences-grid">
+                <div class="experience-card" data-experience="tiger-safari">
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop&q=85" alt="Tiger Safari">
+                        <div class="experience-overlay">
+                            <button class="experience-btn" onclick="bookExperience('tiger-safari')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Experience
+                            </button>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Bengal Tiger Safari</h3>
+                        <p>Track the magnificent Bengal tiger in its natural habitat at Ranthambore or Jim Corbett National Park.</p>
+                        <div class="experience-details">
+                            <span><i class="fas fa-clock"></i> 3-4 Hours</span>
+                            <span><i class="fas fa-users"></i> Max 6 People</span>
+                            <span><i class="fas fa-tag"></i> ₹8,500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card" data-experience="houseboat-stay">
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=400&h=300&fit=crop&q=85" alt="Kerala Houseboat">
+                        <div class="experience-overlay">
+                            <button class="experience-btn" onclick="bookExperience('houseboat-stay')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Experience
+                            </button>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Backwater Houseboat Stay</h3>
+                        <p>Cruise through Kerala's serene backwaters in a traditional houseboat with authentic local cuisine.</p>
+                        <div class="experience-details">
+                            <span><i class="fas fa-clock"></i> 1-2 Days</span>
+                            <span><i class="fas fa-users"></i> 2-8 People</span>
+                            <span><i class="fas fa-tag"></i> ₹12,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card" data-experience="desert-camp">
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1509011815568-8f1b3d5a1b4d?w=400&h=300&fit=crop&q=85" alt="Desert Camping">
+                        <div class="experience-overlay">
+                            <button class="experience-btn" onclick="bookExperience('desert-camp')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Experience
+                            </button>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Thar Desert Camping</h3>
+                        <p>Sleep under the stars in the Thar Desert with camel rides, folk music, and traditional Rajasthani cuisine.</p>
+                        <div class="experience-details">
+                            <span><i class="fas fa-clock"></i> 1 Night</span>
+                            <span><i class="fas fa-users"></i> Any Group Size</span>
+                            <span><i class="fas fa-tag"></i> ₹6,500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card" data-experience="yoga-retreat">
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&q=85" alt="Yoga Retreat">
+                        <div class="experience-overlay">
+                            <button class="experience-btn" onclick="bookExperience('yoga-retreat')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Experience
+                            </button>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Himalayan Yoga Retreat</h3>
+                        <p>Find inner peace with authentic yoga and meditation sessions in the tranquil Himalayan foothills.</p>
+                        <div class="experience-details">
+                            <span><i class="fas fa-clock"></i> 7 Days</span>
+                            <span><i class="fas fa-users"></i> Max 12 People</span>
+                            <span><i class="fas fa-tag"></i> ₹25,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card" data-experience="cooking-class">
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&q=85" alt="Cooking Class">
+                        <div class="experience-overlay">
+                            <button class="experience-btn" onclick="bookExperience('cooking-class')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Experience
+                            </button>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Traditional Cooking Class</h3>
+                        <p>Learn to cook authentic Indian dishes with local families and master the art of Indian spices.</p>
+                        <div class="experience-details">
+                            <span><i class="fas fa-clock"></i> 4 Hours</span>
+                            <span><i class="fas fa-users"></i> Max 8 People</span>
+                            <span><i class="fas fa-tag"></i> ₹3,500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card" data-experience="palace-stay">
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&q=85" alt="Palace Stay">
+                        <div class="experience-overlay">
+                            <button class="experience-btn" onclick="bookExperience('palace-stay')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Experience
+                            </button>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Royal Palace Stay</h3>
+                        <p>Live like royalty in converted heritage palaces with royal treatments and cultural programs.</p>
+                        <div class="experience-details">
+                            <span><i class="fas fa-clock"></i> 2-3 Days</span>
+                            <span><i class="fas fa-users"></i> 2-4 People</span>
+                            <span><i class="fas fa-tag"></i> ₹35,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Traveler Stories</h2>
+                <p class="section-subtitle">Hear from our satisfied travelers about their incredible Indian adventures</p>
+            </div>
+
+            <div class="testimonials-slider">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card active">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"The Golden Triangle tour exceeded all our expectations. Our guide was incredibly knowledgeable, and seeing the Taj Mahal at sunrise was absolutely magical. The palace hotels in Rajasthan made us feel like royalty!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b630?w=80&h=80&fit=crop&q=85" alt="Sarah Johnson">
+                                <div class="author-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <span>New York, USA</span>
+                                    <div class="trip-info">Golden Triangle Deluxe • March 2024</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="feature">
-                            <i class="fas fa-hand-holding-heart"></i>
-                            <div>
-                                <h4>Personalized Service</h4>
-                                <p>Customized itineraries tailored to your preferences</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Kerala's backwaters were pure serenity. The houseboat experience was unique and peaceful. The ayurvedic treatments and local cuisine added perfect touches to our wellness journey. Highly recommended!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&q=85" alt="Michael Chen">
+                                <div class="author-info">
+                                    <h4>Michael Chen</h4>
+                                    <span>London, UK</span>
+                                    <div class="trip-info">Kerala Wellness Tour • February 2024</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="feature">
-                            <i class="fas fa-award"></i>
-                            <div>
-                                <h4>Expert Guides</h4>
-                                <p>Local experts who know the best hidden gems</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"The spiritual journey through Varanasi and Rishikesh was life-changing. Witnessing the Ganga Aarti and participating in yoga sessions by the holy river created memories I'll cherish forever."</p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&q=85" alt="Emma Thompson">
+                                <div class="author-info">
+                                    <h4>Emma Thompson</h4>
+                                    <span>Sydney, Australia</span>
+                                    <div class="trip-info">Spiritual India Journey • January 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Adventure lovers, this is it! The Himalayan trek was challenging but absolutely rewarding. Professional guides, stunning views, and perfectly organized logistics. Can't wait to come back for more!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&q=85" alt="David Rodriguez">
+                                <div class="author-info">
+                                    <h4>David Rodriguez</h4>
+                                    <span>Madrid, Spain</span>
+                                    <div class="trip-info">Himalayan Adventure Trek • December 2023</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <span class="stat-number" data-target="5000">0</span>
-                        <span class="stat-label">Happy Travelers</span>
+
+                <div class="testimonial-controls">
+                    <button class="testimonial-btn prev" onclick="changeTestimonial(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="testimonial-dots" id="testimonialDots">
+                        <span class="dot active" onclick="currentTestimonial(0)"></span>
+                        <span class="dot" onclick="currentTestimonial(1)"></span>
+                        <span class="dot" onclick="currentTestimonial(2)"></span>
+                        <span class="dot" onclick="currentTestimonial(3)"></span>
                     </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="150">0</span>
-                        <span class="stat-label">Destinations</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="98">0</span>
-                        <span class="stat-label">Satisfaction %</span>
-                    </div>
+                    <button class="testimonial-btn next" onclick="changeTestimonial(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="testimonials-stats">
+                <div class="stat">
+                    <span class="stat-number" data-target="15000">0</span>
+                    <span class="stat-label">Happy Travelers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="98">0</span>
+                    <span class="stat-label">% Satisfaction Rate</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="2500">0</span>
+                    <span class="stat-label">Five Star Reviews</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Countries Served</span>
                 </div>
             </div>
         </div>
@@ -326,46 +1073,145 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <div class="section-header">
+                <h2 class="section-title">Start Your Journey Today</h2>
+                <p class="section-subtitle">Ready to explore incredible India? Get in touch with our travel experts</p>
+            </div>
+
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Ready to Start Your Journey?</h3>
-                    <p>Contact us today and let us help you plan the perfect trip of a lifetime.</p>
+                    <h3>Why Choose Us?</h3>
+                    <div class="features-list">
+                        <div class="feature">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>15+ Years Experience</h4>
+                                <p>Expert knowledge of India's hidden gems</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Local Expertise</h4>
+                                <p>Native guides and authentic experiences</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Safe & Secure</h4>
+                                <p>24/7 support and comprehensive insurance</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <h4>Personalized Service</h4>
+                                <p>Customized itineraries for your preferences</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+1 (555) 123-4567</span>
+                            <div>
+                                <span>Call Us</span>
+                                <a href="tel:+911234567890">+91 123 456 7890</a>
+                            </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>hello@wanderlust.com</span>
+                            <div>
+                                <span>Email Us</span>
+                                <a href="mailto:info@incredibleindia.com">info@incredibleindia.com</a>
+                            </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Travel Street, Adventure City</span>
+                            <div>
+                                <span>Visit Us</span>
+                                <address>123 Travel Street, Delhi, India</address>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span>Office Hours</span>
+                                <span>Mon-Sat: 9:00 AM - 7:00 PM</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <h3>Get Your Free Quote</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <select id="destination" name="destination" required>
+                            <option value="">Select Your Dream Destination</option>
+                            <option value="golden-triangle">Golden Triangle (Delhi-Agra-Jaipur)</option>
+                            <option value="rajasthan">Rajasthan - Land of Kings</option>
+                            <option value="kerala">Kerala - God's Own Country</option>
+                            <option value="himachal">Himachal Pradesh Mountains</option>
+                            <option value="goa">Goa Beach Paradise</option>
+                            <option value="uttarakhand">Uttarakhand Adventure</option>
+                            <option value="south-india">South India Cultural Tour</option>
+                            <option value="spiritual">Spiritual India Journey</option>
+                            <option value="luxury">Luxury Palace Tours</option>
+                            <option value="custom">Custom Itinerary</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="date" id="travelDate" name="travelDate" placeholder="Preferred Travel Date" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="travelers" name="travelers" required>
+                                <option value="">Number of Travelers</option>
+                                <option value="1">Solo (1 person)</option>
+                                <option value="2">Couple (2 people)</option>
+                                <option value="3-4">Small Group (3-4 people)</option>
+                                <option value="5-8">Medium Group (5-8 people)</option>
+                                <option value="9+">Large Group (9+ people)</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <select id="destination" name="destination">
-                            <option value="">Select Destination</option>
-                            <option value="paris">Paris, France</option>
-                            <option value="tokyo">Tokyo, Japan</option>
-                            <option value="santorini">Santorini, Greece</option>
-                            <option value="bali">Bali, Indonesia</option>
+                        <select id="budget" name="budget">
+                            <option value="">Budget Range (per person)</option>
+                            <option value="budget">₹15,000 - ₹30,000</option>
+                            <option value="mid-range">₹30,000 - ₹60,000</option>
+                            <option value="luxury">₹60,000 - ₹1,00,000</option>
+                            <option value="ultra-luxury">₹1,00,000+</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Tell us about your dream trip..." rows="5"></textarea>
+                        <textarea id="message" name="message" placeholder="Tell us about your dream trip, special interests, or any questions..." rows="4"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Subscribe to our newsletter for travel tips and exclusive offers</label>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Get My Free Quote
+                    </button>
                 </form>
             </div>
         </div>
@@ -377,46 +1223,79 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <i class="fas fa-globe-americas"></i>
-                        <span>Wanderlust</span>
+                        <i class="fas fa-lotus"></i>
+                        <span>Incredible India</span>
                     </div>
-                    <p>Making your travel dreams come true, one destination at a time.</p>
+                    <p>Creating unforgettable journeys across the diverse landscapes and rich culture of India since 2009.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
+
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4>Destinations</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#destinations">Destinations</a></li>
-                        <li><a href="#packages">Packages</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="#destinations">Golden Triangle</a></li>
+                        <li><a href="#destinations">Rajasthan</a></li>
+                        <li><a href="#destinations">Kerala</a></li>
+                        <li><a href="#destinations">Himachal Pradesh</a></li>
+                        <li><a href="#destinations">Goa</a></li>
+                        <li><a href="#destinations">Uttarakhand</a></li>
                     </ul>
                 </div>
+
+                <div class="footer-section">
+                    <h4>Travel Styles</h4>
+                    <ul>
+                        <li><a href="#packages">Cultural Tours</a></li>
+                        <li><a href="#packages">Adventure Travel</a></li>
+                        <li><a href="#packages">Spiritual Journeys</a></li>
+                        <li><a href="#packages">Luxury Travel</a></li>
+                        <li><a href="#packages">Budget Tours</a></li>
+                        <li><a href="#experiences">Unique Experiences</a></li>
+                    </ul>
+                </div>
+
                 <div class="footer-section">
                     <h4>Support</h4>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
                         <li><a href="#">Travel Insurance</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Booking Terms</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Travel Guidelines</a></li>
+                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-section">
                     <h4>Newsletter</h4>
-                    <p>Subscribe to get travel updates and exclusive offers.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Enter your email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    <p>Get travel tips, destination guides, and exclusive offers delivered to your inbox.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </form>
+                    <div class="certifications">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA4MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjQwIiByeD0iNCIgZmlsbD0iIzAwNzA0QSIvPgo8dGV4dCB4PSI0MCIgeT0iMTYiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjgiIGZvbnQtZmFtaWx5PSJBcmlhbCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW5kaWEgVG91cmlzbTwvdGV4dD4KPHR0ZXh0IHg9IjQwIiB5PSIyOCIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iNiIgZm9udC1mYW1pbHk9IkFyaWFsIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DZXJ0aWZpZWQgQWdlbnQ8L3RleHQ+Cjwvc3ZnPgo=" alt="India Tourism Certified">
+                    </div>
                 </div>
             </div>
+
             <div class="footer-bottom">
-                <p>&copy; 2024 Wanderlust. All rights reserved.</p>
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 Incredible India Tours. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -424,49 +1303,147 @@
     <!-- Booking Modal -->
     <div id="bookingModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Book Your Adventure</h2>
-            <form id="bookingForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" placeholder="First Name" required>
+            <div class="modal-header">
+                <h2>Book Your Indian Adventure</h2>
+                <span class="close" onclick="closeBookingModal()">&times;</span>
+            </div>
+            <form id="bookingForm" class="booking-form">
+                <div class="form-step active" data-step="1">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="firstName" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="lastName" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Last Name" required>
+                        <input type="text" name="nationality" placeholder="Nationality" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <select required>
-                        <option value="">Select Destination</option>
-                        <option value="paris">Paris, France</option>
-                        <option value="tokyo">Tokyo, Japan</option>
-                        <option value="santorini">Santorini, Greece</option>
-                        <option value="bali">Bali, Indonesia</option>
-                    </select>
-                </div>
-                <div class="form-row">
+
+                <div class="form-step" data-step="2">
+                    <h3>Trip Details</h3>
                     <div class="form-group">
-                        <input type="date" placeholder="Departure Date" required>
+                        <select name="destination" required>
+                            <option value="">Select Destination</option>
+                            <option value="golden-triangle">Golden Triangle Deluxe</option>
+                            <option value="rajasthan">Royal Rajasthan Palace Tour</option>
+                            <option value="kerala">Kerala Backwater Experience</option>
+                            <option value="himachal">Himalayan Adventure Trek</option>
+                            <option value="spiritual">Spiritual India Journey</option>
+                            <option value="goa">Goa Beach Holiday</option>
+                            <option value="custom">Custom Package</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <input type="number" placeholder="Number of Travelers" min="1" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="date" name="startDate" placeholder="Start Date" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="duration" required>
+                                <option value="">Duration</option>
+                                <option value="3-5">3-5 Days</option>
+                                <option value="6-10">6-10 Days</option>
+                                <option value="11-15">11-15 Days</option>
+                                <option value="15+">15+ Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select name="travelers" required>
+                                <option value="">Number of Travelers</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5+">5+ People</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="accommodation" required>
+                                <option value="">Accommodation Type</option>
+                                <option value="budget">Budget Hotels (3*)</option>
+                                <option value="standard">Standard Hotels (4*)</option>
+                                <option value="luxury">Luxury Hotels (5*)</option>
+                                <option value="heritage">Heritage Properties</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Book Now</button>
+
+                <div class="form-step" data-step="3">
+                    <h3>Special Preferences</h3>
+                    <div class="form-group">
+                        <label>Travel Interests (Select all that apply)</label>
+                        <div class="checkbox-grid">
+                            <label><input type="checkbox" name="interests" value="culture"> Cultural Heritage</label>
+                            <label><input type="checkbox" name="interests" value="adventure"> Adventure Sports</label>
+                            <label><input type="checkbox" name="interests" value="spiritual"> Spiritual Journey</label>
+                            <label><input type="checkbox" name="interests" value="wildlife"> Wildlife Safari</label>
+                            <label><input type="checkbox" name="interests" value="cuisine"> Food & Cuisine</label>
+                            <label><input type="checkbox" name="interests" value="photography"> Photography</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select name="budget">
+                            <option value="">Budget Range (per person)</option>
+                            <option value="budget">₹15,000 - ₹30,000</option>
+                            <option value="mid-range">₹30,000 - ₹60,000</option>
+                            <option value="luxury">₹60,000 - ₹1,00,000</option>
+                            <option value="ultra-luxury">₹1,00,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="specialRequests" placeholder="Special requests, dietary requirements, accessibility needs, etc." rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="btn-secondary prev-step" onclick="previousStep()" style="display: none;">Previous</button>
+                    <button type="button" class="btn-primary next-step" onclick="nextStep()">Next</button>
+                    <button type="submit" class="btn-primary submit-step" style="display: none;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Booking Request
+                    </button>
+                </div>
+
+                <div class="form-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 33.33%;"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <span class="step active">1</span>
+                        <span class="step">2</span>
+                        <span class="step">3</span>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- Loading Animation -->
-    <div class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p>Loading amazing destinations...</p>
+    <!-- Success Notification -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span>Message sent successfully!</span>
         </div>
     </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>
