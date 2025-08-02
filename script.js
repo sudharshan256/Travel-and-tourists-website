@@ -1,54 +1,748 @@
-// DOM Elements
-const loadingScreen = document.querySelector('.loading-screen');
-const navbar = document.querySelector('.navbar');
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const modal = document.getElementById('bookingModal');
-const closeModal = document.querySelector('.close');
-const contactForm = document.getElementById('contactForm');
-const bookingForm = document.getElementById('bookingForm');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const packageCards = document.querySelectorAll('.package-card');
-const destinationCards = document.querySelectorAll('.destination-card');
-const mapPoints = document.querySelectorAll('.map-point');
-const statNumbers = document.querySelectorAll('.stat-number');
+// ===== GLOBAL VARIABLES =====
+let currentSlide = 0;
+let currentTestimonial = 0;
+let isScrolling = false;
+let heroSlideInterval;
+let testimonialInterval;
 
-// Loading Screen
-window.addEventListener('load', () => {
+// ===== DOM ELEMENTS =====
+const loadingScreen = document.getElementById('loadingScreen');
+const navbar = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+const backToTop = document.getElementById('backToTop');
+const heroSlides = document.querySelectorAll('.hero-slide');
+const testimonialTrack = document.getElementById('testimonialTrack');
+const testimonialCards = document.querySelectorAll('.testimonial-card');
+const testimonialDots = document.querySelectorAll('.dot');
+const bookingModal = document.getElementById('bookingModal');
+const notification = document.getElementById('notification');
+
+// ===== LOADING SCREEN =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide loading screen after a delay
     setTimeout(() => {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-        }, 500);
+        if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
     }, 2000);
+
+    // Initialize all features
+    initializeWebsite();
 });
 
-// Navigation
-hamburger.addEventListener('click', () => {
+function initializeWebsite() {
+    initializeNavigation();
+    initializeHeroSlider();
+    initializeScrollAnimations();
+    initializeCounters();
+    initializeTestimonials();
+    initializePackageFilters();
+    initializeForms();
+    initializeBackToTop();
+    initializeModalFunctionality();
+}
+
+// ===== NAVIGATION =====
+function initializeNavigation() {
+    // Mobile menu toggle
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', handleNavClick);
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', handleNavbarScroll);
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-container') && navMenu?.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+}
+
+function toggleMobileMenu() {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
-});
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+}
 
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
+function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+    document.body.style.overflow = '';
+}
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
+function handleNavClick(e) {
+    e.preventDefault();
+    const targetId = e.target.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    
+    if (targetSection) {
+        // Update active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        e.target.classList.add('active');
+
+        // Smooth scroll to section
+        targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+
+        // Close mobile menu if open
+        closeMobileMenu();
     }
-});
+}
 
-// Smooth scrolling for navigation links
+function handleNavbarScroll() {
+    if (window.scrollY > 100) {
+        navbar?.classList.add('scrolled');
+    } else {
+        navbar?.classList.remove('scrolled');
+    }
+
+    // Update active navigation based on scroll position
+    updateActiveNav();
+}
+
+function updateActiveNav() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPos = window.scrollY + 200;
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            navLink?.classList.add('active');
+        }
+    });
+}
+
+// ===== HERO SLIDER =====
+function initializeHeroSlider() {
+    if (heroSlides.length > 0) {
+        // Start auto-slide
+        startHeroSlider();
+
+        // Add swipe functionality for mobile
+        addSwipeGestures();
+    }
+}
+
+function startHeroSlider() {
+    heroSlideInterval = setInterval(() => {
+        changeSlide(1);
+    }, 5000);
+}
+
+function changeSlide(direction) {
+    // Clear interval to prevent conflicts
+    clearInterval(heroSlideInterval);
+
+    // Remove active class from current slide
+    heroSlides[currentSlide]?.classList.remove('active');
+
+    // Calculate next slide
+    currentSlide += direction;
+    if (currentSlide >= heroSlides.length) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = heroSlides.length - 1;
+
+    // Add active class to new slide
+    heroSlides[currentSlide]?.classList.add('active');
+
+    // Restart auto-slide
+    setTimeout(startHeroSlider, 1000);
+}
+
+function addSwipeGestures() {
+    let startX = 0;
+    let endX = 0;
+
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+
+    heroSection.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    heroSection.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        const difference = startX - endX;
+
+        if (Math.abs(difference) > 50) {
+            if (difference > 0) {
+                changeSlide(1); // Swipe left - next slide
+            } else {
+                changeSlide(-1); // Swipe right - previous slide
+            }
+        }
+    });
+}
+
+// ===== SCROLL ANIMATIONS =====
+function initializeScrollAnimations() {
+    // Create intersection observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll(`
+        .destination-card,
+        .package-card,
+        .culture-card,
+        .experience-card,
+        .feature
+    `);
+
+    animatedElements.forEach(el => {
+        el.classList.add('scroll-animate');
+        observer.observe(el);
+    });
+}
+
+// ===== COUNTERS =====
+function initializeCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.7 });
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
+
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-target'));
+    const increment = target / 100;
+    let current = 0;
+
+    const updateCounter = () => {
+        if (current < target) {
+            current += increment;
+            element.textContent = Math.ceil(current);
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = target;
+        }
+    };
+
+    updateCounter();
+}
+
+// ===== TESTIMONIALS =====
+function initializeTestimonials() {
+    if (testimonialCards.length > 0) {
+        // Start auto-testimonial rotation
+        startTestimonialRotation();
+    }
+}
+
+function startTestimonialRotation() {
+    testimonialInterval = setInterval(() => {
+        changeTestimonial(1);
+    }, 6000);
+}
+
+function changeTestimonial(direction) {
+    // Clear interval to prevent conflicts
+    clearInterval(testimonialInterval);
+
+    // Remove active classes
+    testimonialCards[currentTestimonial]?.classList.remove('active');
+    testimonialDots[currentTestimonial]?.classList.remove('active');
+
+    // Calculate next testimonial
+    currentTestimonial += direction;
+    if (currentTestimonial >= testimonialCards.length) currentTestimonial = 0;
+    if (currentTestimonial < 0) currentTestimonial = testimonialCards.length - 1;
+
+    // Add active classes
+    testimonialCards[currentTestimonial]?.classList.add('active');
+    testimonialDots[currentTestimonial]?.classList.add('active');
+
+    // Transform track
+    if (testimonialTrack) {
+        testimonialTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+    }
+
+    // Restart auto-rotation
+    setTimeout(startTestimonialRotation, 1000);
+}
+
+function currentTestimonial(index) {
+    clearInterval(testimonialInterval);
+    
+    // Remove active classes
+    testimonialCards[currentTestimonial]?.classList.remove('active');
+    testimonialDots[currentTestimonial]?.classList.remove('active');
+
+    // Set new testimonial
+    currentTestimonial = index;
+    testimonialCards[currentTestimonial]?.classList.add('active');
+    testimonialDots[currentTestimonial]?.classList.add('active');
+
+    // Transform track
+    if (testimonialTrack) {
+        testimonialTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+    }
+
+    // Restart auto-rotation
+    setTimeout(startTestimonialRotation, 1000);
+}
+
+// ===== PACKAGE FILTERS =====
+function initializePackageFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const packageCards = document.querySelectorAll('.package-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filter = button.getAttribute('data-filter');
+            
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // Filter packages
+            filterPackages(filter, packageCards);
+        });
+    });
+}
+
+function filterPackages(filter, cards) {
+    cards.forEach(card => {
+        const categories = card.getAttribute('data-category');
+        
+        if (filter === 'all' || categories?.includes(filter)) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// ===== FORM HANDLING =====
+function initializeForms() {
+    // Contact form
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactForm);
+    }
+
+    // Newsletter form
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', handleNewsletterForm);
+    }
+
+    // Booking form
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+        initializeBookingForm();
+    }
+
+    // Search form
+    initializeSearchForm();
+}
+
+function handleContactForm(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    // Validate form
+    if (validateContactForm(data)) {
+        // Simulate form submission
+        showNotification('Thank you! Your message has been sent successfully.');
+        e.target.reset();
+    }
+}
+
+function validateContactForm(data) {
+    if (!data.firstName || !data.lastName || !data.email || !data.destination || !data.travelers) {
+        showNotification('Please fill in all required fields.', 'error');
+        return false;
+    }
+
+    if (!isValidEmail(data.email)) {
+        showNotification('Please enter a valid email address.', 'error');
+        return false;
+    }
+
+    return true;
+}
+
+function handleNewsletterForm(e) {
+    e.preventDefault();
+    
+    const email = e.target.querySelector('input[type="email"]').value;
+    
+    if (isValidEmail(email)) {
+        showNotification('Successfully subscribed to newsletter!');
+        e.target.reset();
+    } else {
+        showNotification('Please enter a valid email address.', 'error');
+    }
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// ===== BOOKING MODAL =====
+let currentStep = 1;
+const totalSteps = 3;
+
+function initializeBookingForm() {
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', handleBookingSubmit);
+    }
+}
+
+function openBookingModal() {
+    if (bookingModal) {
+        bookingModal.classList.add('active');
+        bookingModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        resetBookingForm();
+    }
+}
+
+function closeBookingModal() {
+    if (bookingModal) {
+        bookingModal.classList.remove('active');
+        setTimeout(() => {
+            bookingModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+}
+
+function resetBookingForm() {
+    currentStep = 1;
+    updateBookingStep();
+    document.getElementById('bookingForm')?.reset();
+}
+
+function nextStep() {
+    if (validateCurrentStep()) {
+        currentStep++;
+        updateBookingStep();
+    }
+}
+
+function previousStep() {
+    currentStep--;
+    updateBookingStep();
+}
+
+function updateBookingStep() {
+    // Hide all steps
+    document.querySelectorAll('.form-step').forEach(step => {
+        step.classList.remove('active');
+    });
+
+    // Show current step
+    const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
+    if (currentStepElement) {
+        currentStepElement.classList.add('active');
+    }
+
+    // Update progress bar
+    const progressFill = document.querySelector('.progress-fill');
+    if (progressFill) {
+        const progressPercent = (currentStep / totalSteps) * 100;
+        progressFill.style.width = `${progressPercent}%`;
+    }
+
+    // Update progress steps
+    document.querySelectorAll('.progress-steps .step').forEach((step, index) => {
+        if (index < currentStep) {
+            step.classList.add('active');
+        } else {
+            step.classList.remove('active');
+        }
+    });
+
+    // Update navigation buttons
+    const prevBtn = document.querySelector('.prev-step');
+    const nextBtn = document.querySelector('.next-step');
+    const submitBtn = document.querySelector('.submit-step');
+
+    if (prevBtn) prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+    if (nextBtn) nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
+    if (submitBtn) submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
+}
+
+function validateCurrentStep() {
+    const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
+    if (!currentStepElement) return false;
+
+    const requiredFields = currentStepElement.querySelectorAll('[required]');
+    let isValid = true;
+
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.style.borderColor = '#ef4444';
+            isValid = false;
+        } else {
+            field.style.borderColor = '#e2e8f0';
+        }
+    });
+
+    if (!isValid) {
+        showNotification('Please fill in all required fields.', 'error');
+    }
+
+    return isValid;
+}
+
+function handleBookingSubmit(e) {
+    e.preventDefault();
+    
+    if (validateCurrentStep()) {
+        // Simulate booking submission
+        showNotification('Booking request submitted! We will contact you within 24 hours.');
+        closeBookingModal();
+    }
+}
+
+// ===== SEARCH FUNCTIONALITY =====
+function initializeSearchForm() {
+    const searchBtn = document.querySelector('.search-btn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', searchPackages);
+    }
+}
+
+function searchPackages() {
+    const destination = document.getElementById('destinationSelect')?.value;
+    const travelType = document.getElementById('travelType')?.value;
+    const duration = document.getElementById('duration')?.value;
+
+    if (!destination && !travelType && !duration) {
+        showNotification('Please select at least one search criteria.', 'error');
+        return;
+    }
+
+    // Scroll to packages section
+    const packagesSection = document.getElementById('packages');
+    if (packagesSection) {
+        packagesSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Highlight relevant packages
+        setTimeout(() => {
+            highlightSearchResults(destination, travelType, duration);
+        }, 500);
+    }
+}
+
+function highlightSearchResults(destination, travelType, duration) {
+    const packageCards = document.querySelectorAll('.package-card');
+    
+    packageCards.forEach(card => {
+        const cardDestination = card.getAttribute('data-destination');
+        const cardCategory = card.getAttribute('data-category');
+        
+        let matches = false;
+        
+        if (destination && cardDestination?.includes(destination)) matches = true;
+        if (travelType && cardCategory?.includes(travelType)) matches = true;
+        
+        if (matches) {
+            card.style.border = '3px solid #FF6900';
+            card.style.transform = 'translateY(-5px)';
+            card.style.boxShadow = '0 20px 40px rgba(255, 105, 0, 0.2)';
+        } else {
+            card.style.border = '';
+            card.style.transform = '';
+            card.style.boxShadow = '';
+        }
+    });
+
+    // Remove highlights after a few seconds
+    setTimeout(() => {
+        packageCards.forEach(card => {
+            card.style.border = '';
+            card.style.transform = '';
+            card.style.boxShadow = '';
+        });
+    }, 5000);
+}
+
+// ===== DESTINATION INTERACTIONS =====
+function exploreDestination(destinationId) {
+    // Show destination details or redirect to dedicated page
+    showNotification(`Exploring ${destinationId.charAt(0).toUpperCase() + destinationId.slice(1)}...`);
+    
+    // Simulate loading destination details
+    setTimeout(() => {
+        openDestinationModal(destinationId);
+    }, 1000);
+}
+
+function openDestinationModal(destinationId) {
+    // Create dynamic modal content for destination
+    const destinationData = getDestinationData(destinationId);
+    if (destinationData) {
+        createDestinationModal(destinationData);
+    }
+}
+
+function getDestinationData(id) {
+    const destinations = {
+        rajasthan: {
+            name: 'Rajasthan',
+            tagline: 'Land of Kings & Palaces',
+            description: 'Experience royal heritage in magnificent palaces, explore golden deserts, and witness vibrant festivals.',
+            highlights: ['Magnificent Palaces', 'Desert Safari', 'Camel Rides', 'Folk Performances'],
+            images: [
+                'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=800&h=600&fit=crop&q=85',
+                'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&q=85'
+            ]
+        },
+        kerala: {
+            name: 'Kerala',
+            tagline: 'God\'s Own Country',
+            description: 'Cruise through serene backwaters, relax on pristine beaches, and experience authentic Ayurvedic treatments.',
+            highlights: ['Houseboat Cruises', 'Ayurvedic Treatments', 'Spice Plantations', 'Beach Resorts'],
+            images: [
+                'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&h=600&fit=crop&q=85',
+                'https://images.unsplash.com/photo-1588777564147-b3bc75eb5b08?w=800&h=600&fit=crop&q=85'
+            ]
+        }
+    };
+    
+    return destinations[id];
+}
+
+function createDestinationModal(data) {
+    // This would create a detailed modal with image gallery, highlights, and booking options
+    showNotification(`${data.name} details would open in a dedicated modal.`);
+}
+
+// ===== EXPERIENCE BOOKING =====
+function bookExperience(experienceId) {
+    showNotification(`Booking ${experienceId.replace('-', ' ')} experience...`);
+    
+    // Pre-fill booking modal with experience details
+    setTimeout(() => {
+        openBookingModal();
+        // Pre-select experience in booking form if available
+    }, 500);
+}
+
+// ===== PACKAGE INTERACTIONS =====
+function viewPackageDetails(packageId) {
+    showNotification(`Loading ${packageId.replace('-', ' ')} package details...`);
+    // This would open a detailed package view
+}
+
+function bookPackage(packageId) {
+    showNotification(`Booking ${packageId.replace('-', ' ')} package...`);
+    setTimeout(() => {
+        openBookingModal();
+    }, 500);
+}
+
+// ===== NOTIFICATION SYSTEM =====
+function showNotification(message, type = 'success') {
+    if (!notification) return;
+
+    const content = notification.querySelector('.notification-content');
+    if (content) {
+        // Update notification style based on type
+        if (type === 'error') {
+            notification.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+            content.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>${message}</span>`;
+        } else {
+            notification.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
+            content.innerHTML = `<i class="fas fa-check-circle"></i><span>${message}</span>`;
+        }
+
+        // Show notification
+        notification.classList.add('show');
+
+        // Hide after 4 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 4000);
+    }
+}
+
+// ===== BACK TO TOP =====
+function initializeBackToTop() {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop?.classList.add('show');
+        } else {
+            backToTop?.classList.remove('show');
+        }
+    });
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// ===== MODAL FUNCTIONALITY =====
+function initializeModalFunctionality() {
+    // Close modal when clicking outside
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            closeBookingModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && bookingModal?.classList.contains('active')) {
+            closeBookingModal();
+        }
+    });
+}
+
+// ===== UTILITY FUNCTIONS =====
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -59,384 +753,21 @@ function scrollToSection(sectionId) {
     }
 }
 
-// Modal functionality
-function openBookingModal() {
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+function showAllDestinations() {
+    showNotification('Loading all 29 states and territories...');
+    // This would expand the destinations grid or navigate to a dedicated page
 }
 
-closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-});
-
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Package filtering
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        const filter = btn.getAttribute('data-filter');
-        
-        packageCards.forEach(card => {
-            const categories = card.getAttribute('data-category').split(' ');
-            
-            if (filter === 'all' || categories.includes(filter)) {
-                card.style.display = 'block';
-                card.style.animation = 'slideUp 0.5s ease';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-});
-
-// Destination card interactions
-destinationCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const destination = card.getAttribute('data-destination');
-        showDestinationDetails(destination);
-    });
-    
-    // Add hover effects
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// Map point interactions
-mapPoints.forEach(point => {
-    point.addEventListener('click', () => {
-        const location = point.getAttribute('data-location');
-        showDestinationDetails(location);
-    });
-    
-    // Add pulse animation on hover
-    point.addEventListener('mouseenter', () => {
-        point.style.transform = 'scale(1.2)';
-    });
-    
-    point.addEventListener('mouseleave', () => {
-        point.style.transform = 'scale(1)';
-    });
-});
-
-// Show destination details (placeholder function)
-function showDestinationDetails(destination) {
-    const destinations = {
-        paris: {
-            name: 'Paris, France',
-            description: 'The City of Light offers iconic landmarks, world-class cuisine, and romantic atmosphere.',
-            highlights: ['Eiffel Tower', 'Louvre Museum', 'Notre-Dame', 'Champs-Élysées'],
-            price: '$899',
-            duration: '5 days'
-        },
-        tokyo: {
-            name: 'Tokyo, Japan',
-            description: 'Experience the perfect blend of tradition and cutting-edge technology.',
-            highlights: ['Shibuya Crossing', 'Senso-ji Temple', 'Tokyo Skytree', 'Tsukiji Market'],
-            price: '$1299',
-            duration: '7 days'
-        },
-        santorini: {
-            name: 'Santorini, Greece',
-            description: 'Stunning sunsets and white-washed buildings overlooking the Aegean Sea.',
-            highlights: ['Oia Sunset', 'Fira Town', 'Red Beach', 'Wine Tasting'],
-            price: '$1099',
-            duration: '6 days'
-        },
-        bali: {
-            name: 'Bali, Indonesia',
-            description: 'Tropical paradise with rich culture, beautiful beaches, and spiritual temples.',
-            highlights: ['Ubud Temples', 'Rice Terraces', 'Beach Clubs', 'Monkey Forest'],
-            price: '$799',
-            duration: '8 days'
-        }
-    };
-    
-    const dest = destinations[destination];
-    if (dest) {
-        showModal(`
-            <h2>${dest.name}</h2>
-            <p>${dest.description}</p>
-            <h3>Highlights:</h3>
-            <ul>
-                ${dest.highlights.map(highlight => `<li>${highlight}</li>`).join('')}
-            </ul>
-            <div class="destination-pricing">
-                <span class="price">${dest.price}</span>
-                <span class="duration">${dest.duration}</span>
-            </div>
-            <button class="btn btn-primary" onclick="openBookingModal()">Book This Trip</button>
-        `);
-    }
+function showAllPackages() {
+    showNotification('Loading additional travel packages...');
+    // This would show more packages or navigate to a dedicated packages page
 }
 
-// Generic modal function
-function showModal(content) {
-    const modalContent = document.querySelector('.modal-content');
-    modalContent.innerHTML = `
-        <span class="close" onclick="closeGenericModal()">&times;</span>
-        ${content}
-    `;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-
-function closeGenericModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-// Form submissions
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Show success message
-    showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
-    
-    // Reset form
-    contactForm.reset();
-});
-
-bookingForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(bookingForm);
-    const data = Object.fromEntries(formData);
-    
-    // Show success message
-    showNotification('Booking request submitted successfully! We\'ll contact you shortly.', 'success');
-    
-    // Close modal and reset form
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    bookingForm.reset();
-});
-
-// Newsletter form
-document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    showNotification('Thank you for subscribing to our newsletter!', 'success');
-    e.target.reset();
-});
-
-// Notification system
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-            <span>${message}</span>
-            <button onclick="this.parentElement.parentElement.remove()">&times;</button>
-        </div>
-    `;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        z-index: 3000;
-        animation: slideInRight 0.3s ease;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        if (notification.parentElement) {
-            notification.remove();
-        }
-    }, 5000);
-}
-
-// Scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-        }
-    });
-}, observerOptions);
-
-// Observe elements for scroll animations
-document.querySelectorAll('.destination-card, .package-card, .feature, .stat').forEach(el => {
-    el.classList.add('scroll-animate');
-    observer.observe(el);
-});
-
-// Animate statistics when they come into view
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateStats();
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelector('.about-stats').forEach(stat => {
-    statsObserver.observe(stat);
-});
-
-function animateStats() {
-    statNumbers.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            stat.textContent = Math.floor(current).toLocaleString();
-        }, 16);
-    });
-}
-
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallax = document.querySelector('.hero');
-    const speed = scrolled * 0.5;
-    
-    if (parallax) {
-        parallax.style.transform = `translateY(${speed}px)`;
-    }
-});
-
-// Floating cards animation enhancement
-function enhanceFloatingCards() {
-    const cards = document.querySelectorAll('.card');
-    
-    cards.forEach((card, index) => {
-        card.addEventListener('mouseenter', () => {
-            card.style.animationPlayState = 'paused';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.animationPlayState = 'running';
-        });
-    });
-}
-
-// Search functionality (placeholder)
-function searchDestinations(query) {
-    const destinations = document.querySelectorAll('.destination-card');
-    
-    destinations.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const description = card.querySelector('p').textContent.toLowerCase();
-        const searchTerm = query.toLowerCase();
-        
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-            card.style.display = 'block';
-            card.style.animation = 'slideUp 0.5s ease';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
-// Weather API integration (placeholder)
-async function getWeatherData(city) {
-    // This would integrate with a real weather API
-    const weatherData = {
-        paris: { temp: 18, condition: 'Sunny', icon: '☀️' },
-        tokyo: { temp: 22, condition: 'Cloudy', icon: '☁️' },
-        santorini: { temp: 25, condition: 'Clear', icon: '🌤️' },
-        bali: { temp: 28, condition: 'Rainy', icon: '🌧️' }
-    };
-    
-    return weatherData[city] || { temp: 20, condition: 'Unknown', icon: '❓' };
-}
-
-// Currency converter (placeholder)
-function convertCurrency(amount, fromCurrency, toCurrency) {
-    const rates = {
-        USD: { EUR: 0.85, JPY: 110, GBP: 0.73 },
-        EUR: { USD: 1.18, JPY: 129, GBP: 0.86 },
-        JPY: { USD: 0.009, EUR: 0.0077, GBP: 0.0066 },
-        GBP: { USD: 1.37, EUR: 1.16, JPY: 151 }
-    };
-    
-    if (rates[fromCurrency] && rates[fromCurrency][toCurrency]) {
-        return (amount * rates[fromCurrency][toCurrency]).toFixed(2);
-    }
-    return amount;
-}
-
-// Local storage for user preferences
-function saveUserPreference(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-}
-
-function getUserPreference(key) {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
-}
-
-// Theme toggle functionality
-function toggleTheme() {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    body.setAttribute('data-theme', newTheme);
-    saveUserPreference('theme', newTheme);
-}
-
-// Initialize theme
-const savedTheme = getUserPreference('theme') || 'light';
-document.body.setAttribute('data-theme', savedTheme);
-
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (modal.style.display === 'block') {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    }
-});
-
-// Performance optimization - Lazy loading for images
-function lazyLoadImages() {
+// ===== LAZY LOADING =====
+function initializeLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
     
-    const imageObserver = new IntersectionObserver((entries, observer) => {
+    const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
@@ -446,108 +777,111 @@ function lazyLoadImages() {
             }
         });
     });
-    
-    images.forEach(img => imageObserver.observe(img));
+
+    images.forEach(img => {
+        imageObserver.observe(img);
+    });
 }
 
-// Initialize all functionality
+// ===== PERFORMANCE OPTIMIZATION =====
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimize scroll events
+const debouncedScrollHandler = debounce(handleNavbarScroll, 10);
+window.removeEventListener('scroll', handleNavbarScroll);
+window.addEventListener('scroll', debouncedScrollHandler);
+
+// ===== ACCESSIBILITY =====
+function initializeAccessibility() {
+    // Add keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-navigation');
+        }
+    });
+
+    document.addEventListener('mousedown', () => {
+        document.body.classList.remove('keyboard-navigation');
+    });
+
+    // Add ARIA labels dynamically
+    const buttons = document.querySelectorAll('button:not([aria-label])');
+    buttons.forEach(button => {
+        if (!button.getAttribute('aria-label')) {
+            const text = button.textContent.trim() || button.title || 'Button';
+            button.setAttribute('aria-label', text);
+        }
+    });
+}
+
+// ===== ANIMATION HELPERS =====
+function addScrollAnimation() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .keyboard-navigation *:focus {
+            outline: 3px solid #FF6900 !important;
+            outline-offset: 2px !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// ===== INITIALIZE ON LOAD =====
 document.addEventListener('DOMContentLoaded', () => {
-    enhanceFloatingCards();
-    lazyLoadImages();
-    
-    // Add smooth scrolling to all internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-    
-    // Add loading states to buttons
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (!this.classList.contains('loading')) {
-                this.classList.add('loading');
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-                
-                setTimeout(() => {
-                    this.classList.remove('loading');
-                    this.innerHTML = this.getAttribute('data-original-text') || this.innerHTML;
-                }, 2000);
-            }
-        });
-    });
+    addScrollAnimation();
+    initializeAccessibility();
+    initializeLazyLoading();
 });
 
-// Add CSS for new animations
-const additionalStyles = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+// ===== WINDOW RESIZE HANDLER =====
+window.addEventListener('resize', debounce(() => {
+    // Adjust layout if needed
+    if (window.innerWidth > 768) {
+        closeMobileMenu();
     }
-    
-    .notification-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .notification-content button {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-    
-    .btn.loading {
-        pointer-events: none;
-        opacity: 0.7;
-    }
-    
-    [data-theme="dark"] {
-        --bg-primary: #1a1a1a;
-        --text-primary: #ffffff;
-        --text-secondary: #cccccc;
-    }
-    
-    [data-theme="dark"] body {
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-    }
-    
-    [data-theme="dark"] .navbar {
-        background: rgba(26, 26, 26, 0.95);
-    }
-    
-    [data-theme="dark"] .destinations,
-    [data-theme="dark"] .packages,
-    [data-theme="dark"] .contact {
-        background: #2a2a2a;
-    }
-    
-    [data-theme="dark"] .destination-card,
-    [data-theme="dark"] .package-card,
-    [data-theme="dark"] .contact-form {
-        background: #333;
-        color: var(--text-primary);
-    }
-`;
+}, 250));
 
-// Inject additional styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = additionalStyles;
-document.head.appendChild(styleSheet); 
+// ===== GLOBAL ERROR HANDLER =====
+window.addEventListener('error', (e) => {
+    console.error('Website error:', e.error);
+    // Optionally show user-friendly error message
+});
+
+// ===== EXPORT FUNCTIONS FOR GLOBAL ACCESS =====
+window.openBookingModal = openBookingModal;
+window.closeBookingModal = closeBookingModal;
+window.nextStep = nextStep;
+window.previousStep = previousStep;
+window.changeSlide = changeSlide;
+window.changeTestimonial = changeTestimonial;
+window.currentTestimonial = currentTestimonial;
+window.scrollToSection = scrollToSection;
+window.scrollToTop = scrollToTop;
+window.exploreDestination = exploreDestination;
+window.bookExperience = bookExperience;
+window.viewPackageDetails = viewPackageDetails;
+window.bookPackage = bookPackage;
+window.searchPackages = searchPackages;
+window.showAllDestinations = showAllDestinations;
+window.showAllPackages = showAllPackages; 
